@@ -1,0 +1,218 @@
+DROP TABLE IF EXISTS `debts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `debts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `date_category` (`date`,`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `debts`
+--
+
+LOCK TABLES `debts` WRITE;
+/*!40000 ALTER TABLE `debts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `debts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `debts_categories`
+--
+
+DROP TABLE IF EXISTS `debts_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `debts_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `type` varchar(8) DEFAULT 'IN',
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `debts_categories`
+--
+
+LOCK TABLES `debts_categories` WRITE;
+/*!40000 ALTER TABLE `debts_categories` DISABLE KEYS */;
+INSERT INTO `debts_categories` VALUES (1,'PAID','IN',1,1,NULL,1,'2019-12-10 11:00:10'),(2,'NEW','OUT',1,1,NULL,1,'2019-12-10 11:00:10');
+/*!40000 ALTER TABLE `debts_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `item_categories`
+--
+
+DROP TABLE IF EXISTS `item_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `item_categories`
+--
+
+LOCK TABLES `item_categories` WRITE;
+/*!40000 ALTER TABLE `item_categories` DISABLE KEYS */;
+INSERT INTO `item_categories` VALUES (1,'BEERS',1,1,'2019-12-08 10:32:52',1,'2019-12-08 04:32:52'),(2,'CANS',1,1,'2019-12-08 10:34:49',1,'2019-12-08 04:34:49'),(3,'QUARTERS',1,1,'2019-12-08 10:34:49',1,'2019-12-09 04:28:24'),(4,'NUSU',1,1,'2019-12-08 10:34:49',1,'2019-12-08 04:34:49'),(5,'MIZINGA',1,1,'2019-12-08 10:34:50',1,'2019-12-09 04:28:35'),(6,'WINES',1,1,'2019-12-08 10:34:50',1,'2019-12-09 04:28:24'),(7,'SOFT DRINKS',1,1,'2019-12-08 10:34:51',1,'2019-12-09 04:28:24'),(8,'OTHERS',1,1,'2019-12-10 14:38:39',1,'2019-12-10 08:38:53');
+/*!40000 ALTER TABLE `item_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `items`
+--
+
+DROP TABLE IF EXISTS `items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `buying_price` double NOT NULL,
+  `selling_price` double NOT NULL,
+  `discount` double NOT NULL DEFAULT '0',
+  `category_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `item_category` (`category_id`,`name`,`shop_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `items`
+--
+
+LOCK TABLES `items` WRITE;
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+INSERT INTO `items` VALUES (144,'Hunters Choice 350ml',356,450,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(145,'Hunters Choice 250ml',230,300,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(146,'KIBAO 350ML',246,320,0,4,33,0,NULL,38,'2020-05-27 13:40:21'),(147,'Kibao 250ml',165,200,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(148,'Smirnoff Vodka 250ml',350,450,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(149,'Smirnoff Vodka 350ml',470,650,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(150,'Captain Morgan 250ml',248,320,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(151,'Kenya Cane Pineapple 250ml',208,270,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(152,'Kenya cane smooth 250ml',215,270,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(153,'V&A 250ML',216,280,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(154,'Kane Extra 250ml',160,220,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(155,'Orijin  250ml',192,220,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(156,'Chrome Smooth 250ml',176,220,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(157,'Chrome Lemon 250ml',176,220,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(158,'Viceroy Brandy 250ml',310,450,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(159,'Viceroy Brandy 375ml',515,650,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(160,'Clubman  350ml',233,300,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(161,'Vat69 375ml',685,900,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(162,'Black&White 375ml',440,550,0,4,33,0,NULL,0,'2020-05-01 10:49:50'),(163,'All Seasonds 375ml',314,400,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(164,'White House 350ml',335,400,0,4,33,0,NULL,0,'2020-05-01 10:49:51'),(165,'Opm Vodka 250ml',122,240,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(166,'Best whisky250ml',263,350,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(167,'Konyagi 250ml',170,220,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(168,'Gilbeys 250ml',336,450,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(169,'Gilbeys 350ml',464,600,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(170,'Richot 250ml',350,450,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(171,'BOND 7 250ML',350,450,0,3,33,0,NULL,38,'2020-05-06 11:15:54'),(172,'Bond 7 350ml',485,600,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(173,'Blue ice vodka 250ml',117,150,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(174,'Napoleon 250ml',150,200,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(175,'Savanna Cider 330ml',181,220,0,1,33,0,NULL,0,'2020-05-01 10:39:50'),(176,'Crazy Cock 250ml',215,250,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(178,'Four Cousins S.red 1.5ltrs',1277,1700,0,6,33,0,NULL,0,'2020-05-01 10:39:50'),(179,'4th Street White 750ml',630,800,0,6,33,0,NULL,0,'2020-05-01 10:47:35'),(180,'Cellar Cask S. white 750ml',737,900,0,6,33,0,NULL,0,'2020-05-01 10:47:35'),(181,'Asconi s.red 750ml',945,1250,0,6,33,0,NULL,0,'2020-05-01 10:47:49'),(182,'Penasol Sangria 750ml',478,750,0,6,33,0,NULL,0,'2020-05-06 10:44:27'),(183,'Old Smuggler 750ml',870,1200,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(184,'Best Whisky 750ml',703,900,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(185,'Konyagi 500ml',350,500,0,4,33,0,NULL,0,'2020-05-01 10:39:52'),(186,'Konyagi 750ml',495,650,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(187,'Crazy Cock 750ml',650,850,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(188,'Whytehall honey 1ltr',837,1100,0,5,33,0,NULL,0,'2020-05-06 10:44:25'),(189,'Macmohan 750ml',580,850,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(190,'All Seasons 750ml',645,850,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(191,'8 Pm 750ml',572,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(192,'Jamaican express rum 750ml',570,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(193,'William Lawsons 750ml',890,1350,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(194,'William Lawsons 350ml',450,700,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(195,'William Lawsons 1ltr',1150,1500,0,5,33,0,NULL,0,'2020-05-01 10:39:53'),(196,'Black & White 1ltr',1120,1300,0,5,33,0,NULL,0,'2020-05-01 10:49:51'),(197,'Vat69 750ml',1104,1550,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(198,'Smirnoff Vodka 750ml',960,1300,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(199,'Smirnoff Vodka 1ltr',1200,1600,0,5,33,0,NULL,0,'2020-05-01 10:39:54'),(200,'Baileys 350ml',880,1200,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(201,'Hunters Choice 750ml',635,850,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(202,'Kibao 750ml',445,650,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(203,'Napoleon 750ml',427,560,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(204,'Kenya Cane Smooth 750ml',560,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(205,'Kenya Cane Coconut 750ml',560,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(206,'Chrome Vodka 750ml',480,650,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(207,'Captain Morgan 750ml',696,950,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(208,'Clubman 750ml',446,580,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(209,'Opm Vodka 750ml',530,700,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(210,'Flirt Vodka Apple 1ltr',870,1200,0,5,33,0,NULL,0,'2020-05-01 10:39:54'),(211,'Reserve 7 750ml',610,800,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(212,'V&A750ml',568,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(213,'Viceroy 750ml',998,1300,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(214,'Richot 750ml',990,1300,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(215,'Ciroc Vodka 1ltr',3500,4500,0,5,33,0,NULL,0,'2020-05-01 10:39:55'),(216,'Eristoff Vodka 750ml',835,1100,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(217,'Faxe 500ml',150,200,0,2,33,0,NULL,0,'2020-05-01 10:39:57'),(218,'ATLAS 12 500ML',159,200,0,2,33,0,NULL,44,'2020-05-01 10:39:57'),(219,'Atlas 16 500ml',182,220,0,2,33,0,NULL,0,'2020-05-01 10:39:58'),(220,'Heineken 500ml',179,250,0,1,33,0,NULL,0,'2020-05-01 10:39:58'),(221,'TUSKER LAGER CAN 500ML',154,180,0,2,33,0,NULL,44,'2020-05-01 10:39:59'),(222,'WHITE CAP CAN 500ML',163,200,0,2,33,0,NULL,44,'2020-05-01 10:49:52'),(223,'GUINESS CAN 500ML',171,200,0,2,33,0,NULL,44,'2020-05-01 10:40:00'),(224,'TUSKER MALT CAN 500ML',163,200,0,2,33,0,NULL,44,'2020-05-01 10:40:00'),(225,'Smirnoff Black Ice 330ml',135,160,0,2,33,0,NULL,0,'2020-05-01 10:40:00'),(226,'Smirnoff Guarana 330ml',131,160,0,2,33,0,NULL,0,'2020-05-01 10:40:01'),(227,'SNAPPCAN  300ML',131,160,0,2,33,0,NULL,44,'2020-05-01 10:40:01'),(228,'Caprice Sweet Red 1ltr',553,650,0,6,33,0,NULL,0,'2020-05-01 10:40:02'),(229,'Caprice Dry Red 1ltr',550,650,0,6,33,0,NULL,0,'2020-05-01 10:40:02'),(230,'Caprice Sweet White 1ltr',553,650,0,6,33,0,NULL,0,'2020-05-01 10:40:02'),(231,'Caprice Dry White 1ltr',550,650,0,6,33,0,NULL,0,'2020-05-01 10:40:03'),(232,'WATER 500ML',17,30,0,7,33,0,NULL,44,'2020-05-01 10:40:03'),(233,'Sprite 1.25ltrs',91,120,0,7,33,0,NULL,0,'2020-05-01 10:40:03'),(234,'Sprite 2ltrs',158,180,0,7,33,0,NULL,0,'2020-05-01 10:40:04'),(235,'Desperados 330ml',185,220,0,1,33,0,NULL,0,'2020-05-01 10:40:04'),(236,'DELMONTE 1LTR',188,250,0,7,33,0,NULL,44,'2020-05-01 10:40:04'),(237,'Redbull 250ml',125,180,0,2,33,0,NULL,0,'2020-05-01 10:51:01'),(238,'Four cousins S.red750ML',650,850,0,6,33,0,NULL,0,'2020-05-01 10:47:49'),(239,'Black and white 750ml',840,1100,0,5,33,0,NULL,0,'2020-05-01 10:49:52'),(240,'RED LABEL 1LTR',1692,2200,0,5,33,0,NULL,38,'2020-05-17 08:54:26'),(241,'Iris 750ml',790,1000,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(243,'Coke 2lts',158,180,0,7,33,0,NULL,0,'2020-05-01 10:40:07'),(244,'WATER 1.5L',39,50,0,7,33,0,NULL,44,'2020-05-01 10:40:08'),(245,'sportman',9.25,15,0,8,33,0,NULL,0,'2020-05-01 10:40:08'),(246,'SM ciggaretes',9,10,0,8,33,0,NULL,0,'2020-05-01 10:40:08'),(247,'WILLIAM LAWSONS CAN 330ML',170,220,0,2,33,0,NULL,44,'2020-05-01 10:40:09'),(248,'Dunhill Single',14,15,0,8,33,0,NULL,0,'2020-05-01 10:40:09'),(249,'Dunhill double',14,15,0,8,33,0,NULL,0,'2020-05-01 10:40:10'),(250,'Ama la vida 750ml',580,800,0,6,33,0,NULL,0,'2020-05-01 17:47:44'),(251,'Imperial blue 750ml',550,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(252,'Limejuice1.5ltr',190,250,0,7,33,0,NULL,0,'2020-05-01 10:40:10'),(253,'Black label 750ml',3040,3200,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(254,'RED LABEL 750ML',1424,1850,0,5,33,0,NULL,38,'2020-05-17 08:54:07'),(255,'Monster 500ml',140,200,0,2,33,0,NULL,0,'2020-05-01 10:40:11'),(256,'Tripple Ace 250ml',158,200,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(257,'Coke 1.25ltrs',91,120,0,7,33,0,NULL,0,'2020-05-01 10:40:12'),(258,'GRANTS 750ML',1050,1400,0,5,33,0,NULL,38,'2020-05-17 08:53:01'),(259,'Grants 350ml',565,750,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(260,'Amarula 750ml',1615,2100,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(261,'Amarula 375ml',915,1100,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(262,'Flirt Apple 700ml',730,950,0,5,33,0,NULL,0,'2020-05-01 10:40:15'),(263,'Four Cousins S.White 750ml',650,850,0,6,33,0,NULL,0,'2020-05-01 10:47:35'),(264,'Grants with glass 750ml',1150,1500,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(265,'TUSKER CIDER CAN 500ML',163,200,0,2,33,0,NULL,44,'2020-05-01 10:40:16'),(266,'4th Street Red 750ml',630,800,0,6,33,0,NULL,0,'2020-05-01 10:47:49'),(267,'Heineken 330ml',165,220,0,1,33,0,NULL,0,'2020-05-01 10:40:16'),(268,'Kiss me now 750ml',900,1200,0,6,33,0,NULL,0,'2020-05-06 10:44:26'),(269,'Flirt Apple 375ml',366,550,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(270,'Krest 1.25ml',91,120,0,7,33,0,NULL,0,'2020-05-01 10:40:17'),(271,'Jack Daniels 700ml',2000,3000,0,5,33,0,NULL,0,'2020-05-01 10:40:17'),(272,'Penasol 1ltr',535,700,0,6,33,0,NULL,0,'2020-05-01 10:40:18'),(273,'Teachers 750ml',1000,1300,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(274,'Whytehall Honey 750ml',700,850,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(275,'Drostdy Hof 750ml',650,850,0,6,33,0,NULL,0,'2020-05-01 17:47:18'),(276,'Cellar Cask S.Red 750ml',650,900,0,6,33,0,NULL,0,'2020-05-01 10:47:49'),(277,'Kenya Cane Pineapple 750ml',560,750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(278,'southern comfort 700ml',1515,2200,0,5,33,0,NULL,0,'2020-05-01 10:40:18'),(279,'FAMOUS GROUSE 750ML',1300,1800,0,5,33,0,NULL,38,'2020-05-17 08:52:40'),(280,'Caribia Cane 250ml',170,250,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(281,'Caribia Cane 750ml',500,650,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(282,'Power play 400ml',42,50,0,7,33,0,NULL,0,'2020-05-01 10:40:18'),(283,'Absolute vodka 750ml',1307,1700,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(284,'Orijin 750ml',520,700,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(285,'Kenya cane smooth 350ml',280,400,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(286,'8pm fire 750ml',695,1000,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(287,'Rothmans',7.5,10,0,8,33,0,NULL,0,'2020-05-01 10:40:19'),(288,'Old monk 750ml',650,1000,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(289,'White house 750ml',609,800,0,5,33,0,NULL,0,'2020-05-06 10:44:25'),(290,'Best cream 750ml',823,1300,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(291,'Best gin 750ml',578,800,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(292,'LIME JUICE 700ML',120,180,0,7,33,0,NULL,38,'2020-05-03 14:55:18'),(293,'Crazy cock 350ml',293,400,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(294,'Best gin 250ml',223,300,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(295,'Safari',6,10,0,8,33,0,NULL,0,'2020-05-01 10:40:20'),(296,'8pm honey 750ml',720,1000,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(297,'Baileys delight 750ml',1085,1500,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(298,'Black bird sweet red 750ml',675,900,0,6,33,0,NULL,0,'2020-05-01 10:47:49'),(299,'Black bird sweet white 750ml',675,900,0,6,33,0,NULL,0,'2020-05-01 10:47:35'),(300,'Trust condom',23,50,0,9,33,0,NULL,0,'2020-05-01 10:40:21'),(301,'Richot 350ml',464,650,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(302,'Flirt Orange 375ml',400,550,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(303,'PILSNER CAN 500ML',100,180,0,2,33,0,NULL,44,'2020-05-07 08:09:27'),(304,'White pearl 250ml',145,180,0,3,33,0,NULL,0,'2020-05-01 10:49:53'),(305,'Gilbeys 750ml',960,1250,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(306,'Mr dowells 250ml',208,270,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(307,'Baileys delight 375ml',522,750,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(308,'Best cream 250ml',450,600,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(309,'Sweet berry 250ml',100,130,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(310,'BLUE ICE COCONUT 250ML',117,150,0,3,33,0,NULL,40,'2020-06-20 17:30:42'),(311,'TUSKER LITE CAN 500ML',163,200,0,2,33,0,NULL,44,'2020-05-01 10:40:21'),(312,'Clubman  250ml',187,250,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(313,'Mohans sweet red 750ml',500,700,0,6,33,0,NULL,0,'2020-05-01 10:47:49'),(314,'Black label 1L',3077,4000,0,5,33,0,NULL,0,'2020-05-01 10:40:22'),(315,'Black label 375ml',1520,2000,0,4,33,0,NULL,0,'2020-05-01 10:33:40'),(316,'Red label 375ml',984,1300,0,4,33,0,NULL,0,'2020-05-01 10:51:01'),(317,'Baileys 750ml',1720,2300,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(318,'Kenya cane coconut 250ml',208,270,0,3,33,0,NULL,0,'2020-05-01 10:31:26'),(319,'Krest 500ml',52.8,70,0,7,33,0,NULL,0,'2020-05-01 10:40:22'),(320,'Sprite 500ml',52.8,70,0,7,33,0,NULL,0,'2020-05-01 10:40:22'),(321,'COKE 500ML',52.71,70,0,7,33,0,NULL,44,'2020-05-01 10:40:23'),(322,'Embassy lights',12.05,15,0,8,33,0,NULL,0,'2020-05-01 10:40:23'),(323,'Passport scotch whisky 700ml',855,1200,0,5,33,0,NULL,0,'2020-05-01 10:40:24'),(324,'WATER 1L',34,50,0,7,33,0,NULL,44,'2020-05-01 10:40:24'),(325,'Tripple ace 750ml',416,550,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(326,'Jack Daniels 350ML',1500,1950,0,4,33,0,NULL,0,'2020-05-01 10:29:57'),(327,'JACK DANIELS 1L',2720,3600,0,5,33,0,NULL,40,'2020-06-27 15:52:18'),(328,'Mohans sweet white 750ml',500,700,0,6,33,0,NULL,0,'2020-05-01 10:47:35'),(329,'Tuborg 500ml',158,220,0,1,33,0,NULL,0,'2020-05-01 10:40:25'),(330,'Oak Cask 750ml',662,900,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(331,'Gordons 750ml',1333,1750,0,5,33,0,NULL,0,'2020-05-01 10:30:33'),(399,'Imperial Bue 350ml',335,450,0,4,33,0,NULL,0,'2020-05-10 07:09:08'),(400,'Imperial Bue 250ml',200,250,0,3,33,0,NULL,0,'2020-05-10 07:09:08'),(401,'Robertson Sweet Red 750ml',760,1000,0,6,33,0,NULL,0,'2020-05-10 07:09:09'),(402,'Robertson Sweet White 750ml',760,1000,0,6,33,0,NULL,0,'2020-05-10 07:09:09'),(403,'Jack Daniels Honey 1L',3500,4500,0,5,33,0,NULL,0,'2020-05-10 07:09:10'),(404,'Amarula 1Ltr',2242,3000,0,5,33,0,NULL,0,'2020-05-12 07:58:20'),(407,'TONIC WATER 500ML',52.71,70,0,7,33,0,NULL,0,'2020-05-15 10:59:20'),(408,'BALLANTINES 750ML',1470,2000,0,5,33,0,NULL,0,'2020-06-09 09:29:42'),(409,'GRANTS 1L',1500,1950,0,5,33,0,NULL,0,'2020-05-22 11:21:11'),(410,'FAMOUSE GROUSE 1L',1600,2200,0,5,33,0,NULL,0,'2020-05-22 11:21:11'),(411,'People Vodka 250ml',95,120,0,3,33,0,NULL,0,'2020-06-02 09:05:28'),(413,'Piston 500ml',250,350,0,5,33,0,'0000-00-00 00:00:00',0,'2020-06-02 09:10:11'),(414,'Blue Ice 750ml',350,450,0,5,33,1,NULL,0,'2020-06-02 09:10:59'),(415,'BALLANTINES 1L',1900,2500,0,5,33,0,NULL,0,'2020-06-09 09:29:42'),(417,'KENYA CANE CITRUS 250ML',208,270,0,3,33,40,'2020-06-16 11:40:46',40,'2020-06-16 08:44:50'),(420,'WHITE PEARL 750ML',400,550,0,5,33,38,'2020-06-16 11:50:48',38,'2020-06-16 08:51:25'),(421,'LYFT SACHET',45,100,0,9,33,38,'2020-06-16 11:51:36',40,'2020-06-18 16:35:11'),(422,'LYFT PACK',225,300,0,9,33,40,'2020-06-18 19:35:14',40,'2020-06-18 16:36:52'),(423,'2KEYS WHISKY 750ML',900,1100,0,5,33,40,'2020-06-19 20:36:40',40,'2020-06-19 17:37:17'),(425,'TRACE VODKA 250ML',100,130,0,3,33,40,'2020-06-22 19:28:48',40,'2020-06-22 16:29:29'),(426,'STONY 500ML',52.8,70,0,7,33,39,'2020-06-27 17:05:25',39,'2020-06-27 14:05:57'),(427,'KANE 750ML',390,450,0,5,33,44,'2020-06-28 13:24:30',44,'0000-00-00 00:00:00'),(680,'BALOZI 500ML',170,200,0,1,33,44,'2020-06-28 13:28:55',44,'0000-00-00 00:00:00'),(681,'TUSKER LAGER 500ML',170,200,0,1,33,44,'2020-06-28 13:29:33',44,'0000-00-00 00:00:00'),(683,'TUSKER CIDAR 500ML',175,200,0,1,33,44,'2020-06-28 13:30:02',44,'0000-00-00 00:00:00'),(684,'PILSNER LAGER 500ML',170,200,0,1,33,44,'2020-06-28 13:30:33',44,'0000-00-00 00:00:00'),(685,'GUINESS KUBWA 500ML',180,220,0,1,33,44,'2020-06-28 13:30:57',44,'0000-00-00 00:00:00'),(686,'GUINESS SMOOTH 500ML',180,220,0,1,33,44,'2020-06-28 13:31:41',44,'0000-00-00 00:00:00'),(687,'WHITECAP LAGER 500ML',18,220,0,1,33,44,'2020-06-28 13:32:27',44,'0000-00-00 00:00:00'),(688,'PISTON',110,140,0,3,33,44,'2020-06-28 13:45:19',44,'0000-00-00 00:00:00'),(689,'KK',140,180,0,3,33,44,'2020-06-28 13:46:06',44,'0000-00-00 00:00:00'),(690,'SODA 300ML',27,50,0,7,33,44,'2020-06-28 13:48:25',44,'0000-00-00 00:00:00'),(691,'ALLSOPPS 500ML',130,150,0,1,33,44,'2020-06-28 13:53:11',44,'0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `money_categories`
+--
+
+DROP TABLE IF EXISTS `money_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `money_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `type` varchar(8) NOT NULL DEFAULT 'in',
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_type` (`name`,`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `money_categories`
+--
+
+LOCK TABLES `money_categories` WRITE;
+/*!40000 ALTER TABLE `money_categories` DISABLE KEYS */;
+INSERT INTO `money_categories` VALUES (1,'CASH','IN',1,1,NULL,1,'2019-12-10 09:17:25'),(2,'M-PESA','IN',1,1,NULL,1,'2019-12-11 10:20:22'),(3,'TILL WITHDRAW','OUT',1,1,NULL,1,'2019-12-10 09:17:26'),(5,'PRE-STOCK PAYMENTS','OUT',1,1,NULL,1,'2019-12-10 09:17:27'),(6,'EMPLOYEES SALARY','OUT',1,1,NULL,1,'2019-12-12 06:40:37'),(7,'FOOD','OUT',1,1,NULL,1,'2019-12-10 09:17:28'),(9,'OTHERS','OUT',1,1,NULL,1,'2019-12-10 09:17:28'),(13,'TRANSPORT','OUT',1,1,NULL,1,'2019-12-28 20:34:41'),(14,'POLICE','OUT',1,1,NULL,1,'2019-12-10 09:50:45'),(15,'CLEANING','OUT',1,1,NULL,1,'2019-12-10 16:58:23'),(16,'REPAIRS','OUT',1,1,NULL,1,'2019-12-10 16:58:24'),(17,'KEG FINISHED','IN',1,1,NULL,1,'2019-12-12 14:05:41'),
+(19,'BANK/CARD SWIPE','IN',1,1,NULL,1,'2019-12-15 09:31:15'),(20,'COINS','IN',1,1,NULL,1,'2019-12-15 09:31:15');
+/*!40000 ALTER TABLE `money_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `monies`
+--
+
+DROP TABLE IF EXISTS `monies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `monies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `date_category` (`date`,`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `monies`
+--
+
+LOCK TABLES `monies` WRITE;
+/*!40000 ALTER TABLE `monies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `monies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stock`
+--
+
+DROP TABLE IF EXISTS `stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `item_id` int(11) NOT NULL,
+  `opening` int(11) DEFAULT NULL,
+  `purchases` int(11) DEFAULT NULL,
+  `additions` int(11) DEFAULT NULL,
+  `closing` int(11) DEFAULT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `stock_date` (`date`,`item_id`,`shop_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stock`
+--
+
+LOCK TABLES `stock` WRITE;
+/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- Dump completed on 2019-12-30 10:39:20
